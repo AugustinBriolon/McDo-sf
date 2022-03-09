@@ -7,6 +7,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 
 class ProductCrudController extends AbstractCrudController
 {
@@ -20,6 +21,15 @@ class ProductCrudController extends AbstractCrudController
         return [
             IdField::new('id')->setDisabled(),
             TextField::new('name'),
+            ImageField::new('picture')
+                ->setUploadDir('public/uploads/product')
+                ->setBasePath('uploads/product')
+                ->setUploadedFileNamePattern('[randomhash].[extension]')
+                ->setFormTypeOptions([
+                    'attr' => [
+                        'accept' => 'image/*'
+                    ]
+                ]),
             DateTimeField::new('createdAt')->hideOnForm(),
             DateTimeField::new('updateAt')->hideOnForm()->hideOnIndex(),
         ];
