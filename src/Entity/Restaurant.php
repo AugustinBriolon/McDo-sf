@@ -34,7 +34,7 @@ class Restaurant
     #[ORM\OneToMany(mappedBy: 'restaurant', targetEntity: ProductRestaurant::class)]
     private $productRestaurants;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $picture;
 
     public function __construct()

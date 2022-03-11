@@ -2,15 +2,22 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\District;
+use App\Entity\User;
 use App\Entity\Product;
-use App\Entity\ProductRestaurant;
+use App\Entity\District;
 use App\Entity\Restaurant;
-use Doctrine\Bundle\FixturesBundle\Fixture;
+use App\Entity\ProductRestaurant;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
+
+    public function __construct(private UserPasswordHasherInterface $hasher)
+    {
+    }
+    
     public function load(ObjectManager $manager): void
     {
         for ($i = 1; $i <= 20; $i++) {
@@ -66,6 +73,20 @@ class AppFixtures extends Fixture
                 $manager->persist($productRestaurant);
             }
         }
+
+        for ($i = 1; $i <= 10; $i++) {
+            $user = new User;
+            $user->setEmail('test' . $i . '@gmail.com');
+            $password = $this->hasher->hashPassword($user, 'password');
+            $user->setPassword($password);
+            $user->setRoles([
+                'ROLE_ADMIN',
+                'ROLE_USER'
+            ]);
+
+            $manager->persist($user);
+        }
+
 
         $manager->flush();
     }

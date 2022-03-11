@@ -25,7 +25,7 @@ class Product
     #[Gedmo\Timestampable(on: 'update')]
     private $updateAt;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $picture;
 
     public function getId(): ?int
