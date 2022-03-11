@@ -13,11 +13,11 @@ class ProductRestaurant
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToOne(targetEntity: Product::class)]
+    #[ORM\ManyToOne(targetEntity: Product::class, inversedBy: 'productRestaurants')]
     #[ORM\JoinColumn(nullable: false)]
     private $product;
 
-    #[ORM\ManyToOne(targetEntity: Restaurant::class)]
+    #[ORM\ManyToOne(targetEntity: Restaurant::class, inversedBy: 'productRestaurants')]
     #[ORM\JoinColumn(nullable: false)]
     private $restaurant;
 

@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produits{% endblock %}
+
+{% block body %}
+    <!-- ======= Whu Us Section ======= -->
+    <section id="why-us" class="why-us">
+        <div class="container">
+
+            <div class="section-title">
+                <h2>Our <span> products</span></h2>
+                <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae autem.</p>
+            </div>
+
+            <div class="row">
+                {% for product in products %}
+                    <div class="col-lg-4">
+                        <div class="box">
+                            <span>{{ loop.index }}</span>
+                            <h4>{{ product.product.name }}</h4>
+                            <img src="/uploads/product/{{ product.product.picture }}">
+                            <p>Average price : {{ product.avg_price }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </section><!-- End Whu Us Section -->
+{% endblock %}

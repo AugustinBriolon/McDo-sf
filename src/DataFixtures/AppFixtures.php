@@ -2,22 +2,21 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\User;
-use App\Entity\Product;
 use App\Entity\District;
-use App\Entity\Restaurant;
+use App\Entity\Product;
 use App\Entity\ProductRestaurant;
-use Doctrine\Persistence\ObjectManager;
+use App\Entity\Restaurant;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
-
     public function __construct(private UserPasswordHasherInterface $hasher)
     {
     }
-    
+
     public function load(ObjectManager $manager): void
     {
         for ($i = 1; $i <= 20; $i++) {
@@ -49,7 +48,7 @@ class AppFixtures extends Fixture
             $productEntity = new Product();
             $productEntity->setName($product);
             $productEntity->setCreatedAt(new \DateTime());
-            $productEntity->setUpdateAt(new \DateTime());
+            $productEntity->setUpdatedAt(new \DateTime());
 
             $manager->persist($productEntity);
         }
@@ -68,7 +67,7 @@ class AppFixtures extends Fixture
                 $productRestaurant->setProduct($product);
                 $productRestaurant->setRestaurant($restaurant);
                 $productRestaurant->setStock(rand(50, 2000));
-                $productRestaurant->setPrice(rand(1, 10));
+                $productRestaurant->setPrice(rand(100, 1000) / 100);
 
                 $manager->persist($productRestaurant);
             }
@@ -86,7 +85,6 @@ class AppFixtures extends Fixture
 
             $manager->persist($user);
         }
-
 
         $manager->flush();
     }
